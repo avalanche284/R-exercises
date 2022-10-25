@@ -3,7 +3,7 @@
 #Chapter 6: Forecasting Numeric Data – Regression Methods
 ### LAUNCH problem page 166
 
-launch <- read.csv("/Users/simon/Library/Mobile Documents/com~apple~CloudDocs/classes/Financial data science/my own training/challenger.csv")
+launch <- read.csv("/Users/simon/github_repos/R-exercises/regression/challenger.csv")
 # b is a slope
 b <- cov(launch$temperature, launch$distress_ct) / var(launch$temperature)
 b
@@ -39,7 +39,7 @@ reg(y = launch$distress_ct, x = launch[2:4])
 # The goal of this analysis is to use patient data to estimate the average
 # medical care expenses for such population segments. 
 
-insurance <- read.csv("/Users/simon/Library/Mobile Documents/com~apple~CloudDocs/classes/Financial data science/my own training/insurance.csv", stringsAsFactors = TRUE)
+insurance <- read.csv("/Users/simon/github_repos/R-exercises/regression/insurance.csv", stringsAsFactors = TRUE)
 str(insurance)
 summary(insurance$expenses)
 hist(insurance$expenses)
