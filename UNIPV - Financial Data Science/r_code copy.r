@@ -466,14 +466,14 @@ install.packages("caret")
 # Calling the libraries
 library(readxl)
 library(caret)
-
-
+library(ggplot2)
+library(lattice)
 
 # Import dataset 
 # 6018 companies for which we observe: balance sheet data in 2014, status (active/defaulted) in 2015
 # "Default" is a binary variable assuming values 0 (no default) or 1 (default)
 
-companies_data <- read_excel(SME_dataset.xlsx)
+companies_data <- read_excel("/Users/simon/Library/Mobile Documents/com~apple~CloudDocs/classes/Financial data science/22.10.06. FDS/SME_dataset.xlsx")
 
 data <- SME_dataset
 
@@ -608,7 +608,7 @@ library(ppcor)
 # Import dataset SME_dataset_2.xlsx 
 
 
-companies_data <- read_excel(SME_dataset_2.xlsx))
+companies_data <- read_excel("/Users/simon/Library/Mobile Documents/com~apple~CloudDocs/classes/Financial data science/22.10.06. FDS/SME_dataset_2.xlsx")
 
 data <- companies_data
 
@@ -754,7 +754,7 @@ mae <- mean(abs(results$Real-results$Predicted))
 
 print(mae)
 
-dmar<-dm.test(fit$residuals,fit1$residuals,alternative="two.sided") # Diebold-Mariano test
+dmar<-dm.test(fit_step$residuals,fit1$residuals,alternative="two.sided") # Diebold-Mariano test
 
 ####################################################################################################
 ####################################### LOGISTIC MODEL SELECTION ############################################
@@ -780,7 +780,7 @@ library(pROC) # package for the computation of the AUROC measure and the impleme
 # 6018 companies for which we observe: balance sheet data in 2014, status (active/defaulted) in 2015
 # "Default" is a binary variable assuming values 0 (no default) or 1 (default)
 
-companies_data <- read_excel(SME_dataset)
+companies_data <- read_excel("/Users/simon/Documents/classes/Financial data science/22.10.06. FDS/SME_dataset_2.xlsx")
 
 data <- companies_data
 
@@ -890,7 +890,7 @@ library(moments)
 
 # For the first part of the code, we use a dataset containing balance sheet information on a sample of Italian companies 
 # File name: companies_data
-companies_data <- read_excel( 'SME_dataset.xlsx')
+companies_data <- read_excel( '/Users/simon/Documents/classes/Financial data science/22.10.06. FDS/SME_dataset.xlsx')
 
 
 # Make a copy which we use for the analysis 
@@ -1148,7 +1148,7 @@ library(igraph)
 
 # Import dataset exchanges.xlsx
 
-exchanges <- read_excel( "exchanges.xlsx")
+exchanges <- read_excel( "/Users/simon/Documents/classes/Financial data science/22.10.06. FDS/exchanges.xlsx")
 
 
 # Create a copy of the dataset, called data, on which we will run all operations
@@ -1353,7 +1353,7 @@ mean(outs)
 rm(list=ls())
 
 # Import the bitcoin prices dataset
-exchanges <- read_excel('exchanges.xlsx')
+exchanges <- read_excel('/Users/simon/Documents/classes/Financial data science/22.10.06. FDS/exchanges.xlsx')
 
 
 # Make a copy which we use for the analysis and calculate returns                                
