@@ -297,7 +297,7 @@ ggplot(data, aes(Date)) +
   geom_line(aes(y = btc_kraken, colour = "btc_kraken"))  + 
   geom_line(aes(y = oil, colour = "oil"))
 
-data1<-data[-1]
+data2<-data[-1]
 
 # Investigate correlation between two returns 
 cor(data2$btc_coinbase, data2$btc_kraken)
@@ -307,6 +307,7 @@ cor(data2$btc_coinbase, data2$sp500) # very small correlation
 
 # Check all correlations by using the cor function 
 correlations <- cor(data2)
+
 
 
 # Visualize the correlation plot
@@ -343,7 +344,7 @@ library(readxl)
 library(corrplot)
 
 
- exchanges <- read_excel("exchanges.xlsx")
+ exchanges <- read_excel("~/Downloads/exchanges.xlsx")
 
 
 data <- exchanges
@@ -602,13 +603,14 @@ library(Hmisc)
 library(ggplot2)
 library(corrplot)
 library(ppcor)
+library(forecast)
 
 
 
 # Import dataset SME_dataset_2.xlsx 
 
 
-companies_data <- read_excel("/Users/simon/Library/Mobile Documents/com~apple~CloudDocs/classes/Financial data science/22.10.06. FDS/SME_dataset_2.xlsx")
+companies_data <- read_excel("/Users/simon/Documents/classes/Financial data science/22.10.06. FDS/SME_dataset_2.xlsx")
 
 data <- companies_data
 
@@ -675,8 +677,13 @@ data.all   <- data.clean[sample(nrow(data.clean)), ]
 data.train <- data.clean[1:n_train, ]              
 
 data.test <- data.clean[(n_train+1):nrow(data.clean), ]    
-
-
+#############################################
+#############################################
+#############################################
+# MULTIPLE LINEAR REGRESSION
+#############################################
+#############################################
+#############################################
 # Multiple linear regression on the training dataset
 fit1     <- lm(ROE ~ . - Default, data.train)
 summary(fit1)
@@ -693,11 +700,13 @@ fit_step   <- step(fit1, direction='both')
 summary(fit_step)
 
 # plot(fit_step)
-
-
+#############################################
+#############################################
+#############################################
+### F-test
 # Get residuals and perform an F-test to compare the full model with the reduced one
-res      <- fit_step$residuals
-res_full <- fit1$residuals
+res      <- fit_step$residuals  # fit_step is the reduced model # why it was chosen?
+res_full <- fit1$residuals  # fit1 is our full model
 
 SSE_red  <- sum(res^2)
 SSE_full <- sum(res_full^2)
@@ -714,7 +723,9 @@ f_stat     <- f_stat_num/f_stat_den
 f_pvalue   <- 1-pf(f_stat, df1=k, df2=N-p-k-1) # non-significant difference of residual variance between the two models
 
 
-## ANOVA for model comparison
+########################################################
+########################################################
+############################ ANOVA for model comparison
 m0 <- lm(ROE ~ 1, data.train) #model with no predictors
 m1 <- fit_step       
 
@@ -736,7 +747,10 @@ colnames(results) <- c('Real','Predicted')
 results           <- as.data.frame(results)
 
 
-# Calculate error measures
+#########################################################
+########################################################
+######## Calculate error measures
+
 ## MSE
 mse  <- mean((results$Real-results$Predicted)^2)
 
@@ -755,6 +769,7 @@ mae <- mean(abs(results$Real-results$Predicted))
 print(mae)
 
 dmar<-dm.test(fit_step$residuals,fit1$residuals,alternative="two.sided") # Diebold-Mariano test
+dmar
 
 ####################################################################################################
 ####################################### LOGISTIC MODEL SELECTION ############################################
@@ -1246,7 +1261,7 @@ library(neuralnet)
 
 
 # and run the following line
-ETF_Italian_31days <- read_csv('ETF_Italian_31days.csv')
+ETF_Italian_31days <- read_csv('/Users/simon/Documents/classes/Financial data science/22.10.06. FDS/ETF_Italian.csv')
 
 
 # Make a copy which we use for the analysis                                  
@@ -1457,7 +1472,7 @@ library(randomForest)
 # y - has the client subscribed a term deposit? (binary: "yes","no")
 
 
-clients_data <- read_excel('C:bank_marketing.xlsx')
+clients_data <- read_excel('/Users/simon/Documents/classes/Financial data science/22.10.06. FDS/bank_marketing.xlsx')
 data <- clients_data
 
 
@@ -1601,5 +1616,6 @@ legend(0.6,0.5,
 
 
 delong<-roc.test(fit1_AUROC,fit2_AUROC,method="delong") # DeLong test
+
 
 
